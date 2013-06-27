@@ -1,0 +1,54 @@
+= form_for @task do |f|
+  = f.label :name
+  = f.text_field :name
+  = f.label :desc
+  = f.text_field :desc
+  = f.label :duedate
+  = f.text_field :duedate
+  = f.label :priority_id
+  / = f.select :priority_id, Priority.all.map{|priority| [priority.name, priority.id]}, :include_blank => true, :prompt => "-- Choose Priority --"
+  = f.collection_select :priority_id, @priorities, :id, :name, include_blank: true, prompt: '-- Choose Priority --'
+  = f.submit id: 'submit', class: 'button large success radius'
+  = f.submit id: 'edit-submit', class: 'button large alert radius hidden', value: 'Update Task'
+
+%table#tasks
+  %thead
+    %tr
+      %th#task_change_priorities 
+      %th#task_name_link=link_to "Name", '#'
+      %th#task_description_link=link_to 'Description', '#'
+      %th#task_duedate_link=link_to 'Due Date', '#'
+      %th#task_priority_link=link_to 'Priority', '#'
+      %th#task_priority_urgency_index.hidden
+      %th#priority_id Priority ID
+      %th#task_options=link_to 'Options', '#'
+
+      
+  %tbody
+    - @tasks.each do |task|
+      %tr{style: "background-color: #{task.priority.color}"}
+        %td
+          =link_to '#', class: 'up', :'data-id' => task.id do
+            %i.general.foundicon-up-arrow
+          =link_to '#', class: 'down', :'data-id' => task.id do
+            %i.general.foundicon-down-arrow           
+        %td.name= task.name
+        %td.desc= task.desc
+        %td.duedate= task.duedate
+        - if task.priority.present?
+          %td.priority_urgency_name=task.priority.name
+        -if task.priority.present?
+          %td.priority_urgency_index.hidden=task.priority.urgency_index
+
+        -if task.priority.present?
+          %td.priority_id=task.priority.id
+
+        %td.options
+          = link_to "View", '#', {class: "small button success radius"}
+          //= link_to "Delete", '#', {class: "small button alert radius delete-button"}
+          =link_to 'Delete', '#', class: 'button delete-button radius small alert', :'data-id' => task.id
+          =link_to 'Edit', '#', class: 'button edit-button radius small', :'data-id' => task.id
+          
+#example{style: 'width: 50px; height: 50px; background-color: purple;'}
+
+= javascript_include_tag 'tasks'
