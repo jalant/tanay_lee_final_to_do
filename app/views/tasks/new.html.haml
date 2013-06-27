@@ -20,7 +20,7 @@
       %th#task_duedate_link=link_to 'Due Date', '#'
       %th#task_priority_link=link_to 'Priority', '#'
       %th#task_priority_urgency_index.hidden
-      %th#priority_id Priority ID
+      %th#priority_id.hidden Priority ID
       %th#task_options=link_to 'Options', '#'
 
       
@@ -41,7 +41,7 @@
           %td.priority_urgency_index.hidden=task.priority.urgency_index
 
         -if task.priority.present?
-          %td.priority_id=task.priority.id
+          %td.priority_id.hidden=task.priority.id
 
         %td.options
           = link_to "View", '#', {class: "small button success radius"}
