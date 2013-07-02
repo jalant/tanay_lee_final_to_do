@@ -9,11 +9,12 @@
   / = f.select :priority_id, Priority.all.map{|priority| [priority.name, priority.id]}, :include_blank => true, :prompt => "-- Choose Priority --"
   = f.collection_select :priority_id, @priorities, :id, :name, include_blank: true, prompt: '-- Choose Priority --'
   = f.submit id: 'submit', class: 'button large success radius'
-  = f.submit id: 'edit-submit', class: 'button large alert radius hidden', value: 'Update Task'
+  = f.submit id: 'edit-submit', class: 'button large success radius hidden', value: 'Update Task'
+  = link_to 'Cancel', '#', id: 'cancel', class: 'button radius alert large hidden'
 
 %table#tasks
   %thead
-    %tr
+    %tr#head_row
       %th#task_change_priorities 
       %th#task_name_link=link_to "Name", '#'
       %th#task_description_link=link_to 'Description', '#'
@@ -24,31 +25,34 @@
       %th#task_options=link_to 'Options', '#'
 
       
-  %tbody
+  %tbody#to-do-table
     - @tasks.each do |task|
-      %tr{style: "background-color: #{task.priority.color}"}
-        %td
-          =link_to '#', class: 'up', :'data-id' => task.id do
-            %i.general.foundicon-up-arrow
-          =link_to '#', class: 'down', :'data-id' => task.id do
-            %i.general.foundicon-down-arrow           
-        %td.name= task.name
-        %td.desc= task.desc
-        %td.duedate= task.duedate
-        - if task.priority.present?
-          %td.priority_urgency_name=task.priority.name
-        -if task.priority.present?
-          %td.priority_urgency_index.hidden=task.priority.urgency_index
+      .drag
+        %tr{style: "background-color: #{task.priority.color}"}
+          %td.arrows
+            =link_to '#', class: 'up', :'data-id' => task.id do
+              %i.general.foundicon-up-arrow
+            =link_to '#', class: 'down', :'data-id' => task.id do
+              %i.general.foundicon-down-arrow           
+          %td.name= task.name
+          %td.desc= task.desc
+          %td.duedate= task.duedate
+          - if task.priority.present?
+            %td.priority_urgency_name=task.priority.name
+          -if task.priority.present?
+            %td.priority_urgency_index.hidden=task.priority.urgency_index
 
-        -if task.priority.present?
-          %td.priority_id.hidden=task.priority.id
+          -if task.priority.present?
+            %td.priority_id.hidden=task.priority.id
 
-        %td.options
-          = link_to "View", '#', {class: "small button success radius"}
-          //= link_to "Delete", '#', {class: "small button alert radius delete-button"}
-          =link_to 'Delete', '#', class: 'button delete-button radius small alert', :'data-id' => task.id
-          =link_to 'Edit', '#', class: 'button edit-button radius small', :'data-id' => task.id
-          
+          %td.options
+            = link_to "View", '#', {class: "small view-button button success radius"}
+            //= link_to "Delete", '#', {class: "small button alert radius delete-button"}
+            =link_to 'Delete', '#', class: 'button delete-button radius small alert', :'data-id' => task.id
+            =link_to 'Edit', '#', class: 'button edit-button radius small', :'data-id' => task.id
+            
 #example{style: 'width: 50px; height: 50px; background-color: purple;'}
+
+#example2{style: 'width: 50px; height: 50px; background-color: purple;'}
 
 = javascript_include_tag 'tasks'

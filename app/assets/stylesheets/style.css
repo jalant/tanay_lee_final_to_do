@@ -1,0 +1,62 @@
+.hidden{
+	display: none;
+}
+
+i{
+	font-size: 30px;
+	color: #35292C;
+}
+
+.arrows {
+	padding-top: 20px;
+}
+
+#container {
+	width: 60%;
+	margin: auto;
+	border-radius: 50px;
+
+	background-color: #F3DEBB;
+
+	border: 6px solid #35292C;
+	border-radius: 10px;
+}
+
+
+
+table {
+	margin: auto;
+	background-color: #F3DEBB;
+	border: 5px solid #35292C;
+	border-radius: 10px;
+}
+
+form{
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+body{
+
+	background-color: #85826C;
+}
+
+#head_row{
+	border: 5px solid #35292C;
+	border-radius: 10px;
+}
+
+#example2{
+	display: inline-block;
+float: right;
+margin: 0px;
+padding: 0px;
+border: 10px solid purple;
+margin-bottom: -20px;
+}
+
+#example{
+margin: 0px;
+padding: 0px;
+	display: inline-block;
+}

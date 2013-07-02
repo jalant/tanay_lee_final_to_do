@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   def new
     @task = Task.new
-    @tasks = Task.all.sort_by{|task| [task.priority.urgency_index, task.name]}
+    @tasks = Task.all.sort_by{|task| [task.priority.urgency_index, task.name]}.reverse
     @priorities = Priority.all
   end
 

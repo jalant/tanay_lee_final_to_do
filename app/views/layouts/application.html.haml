@@ -7,10 +7,10 @@
     = javascript_include_tag "ui-extra", :src => 'http://code.jquery.com/ui/1.10.3/jquery-ui.js'
     = csrf_meta_tags
   %body
-    .row
+    #container
       = render partial: '/layouts/partials/nav'
       = yield
-    / Foundation initialization javascript
-    :javascript
-      $(document).foundation();
+      / Foundation initialization javascript
+      :javascript
+        $(document).foundation();
 
